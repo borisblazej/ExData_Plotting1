@@ -37,6 +37,9 @@ two_days <- power %>% subset(Date >= start_date & Date <= end_date)
 rm("power")
 
 
+## format drawing area
+par(mfrow = c(1,1))
+
 ## Generate plot1
 with(two_days, hist(Global_active_power, xlab = "Global Active Power (kilowatts)", 
                     ylab = "Frequency", main = "Global Active Power",

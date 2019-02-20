@@ -37,15 +37,25 @@ two_days <- power %>% subset(Date >= start_date & Date <= end_date) %>%
     mutate(Datetime = ymd_hms(ymd(Date) + hms(Time)))
 rm("power")
 
-
 ## format drawing area
 par(mfrow = c(1,1))
 
-## Generate plot2
-with(two_days, plot(x=Datetime, y=Global_active_power, type ="l", xlab="",
-                     ylab = "Global Active Power (kilowatts)"))
+## Generate plot3
+### Line 1 -> black
+with(two_days, plot(x=Datetime, y=Sub_metering_1, type ="l", xlab="",
+                     ylab = "Energy Submetering"))
 
+### Line 2 -> red
+with(two_days, lines(x=Datetime, y=Sub_metering_2, col = "red"))
+
+### Line 3 -> blue
+with(two_days, lines(x=Datetime, y=Sub_metering_3, col = "blue"))
+
+### Legend
+legend("topright", col = c("black", "red", "blue"), lty=1, lwd=1,
+       legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
+       y.intersp = 0.8)
 
 ## Seave the plot to a png file
-dev.copy(device = png, filename = "plot2.png", width = 480, height = 480)
+dev.copy(device = png, filename = "plot3.png", width = 480, height = 480)
 dev.off()
